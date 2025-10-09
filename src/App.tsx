@@ -1,110 +1,14 @@
-import CardGrid, { type PortfolioItem } from '@components/CardGrid'
+import CardGrid from '@components/CardGrid'
 import { useReveal } from '@hooks/useReveal'
 import DeveloperProfile from '@components/DeveloperProfile'
-import ExperienceList, { type ExperienceItem } from '@components/ExperienceList'
-import EducationList, { type EducationItem } from '@components/EducationList'
+import ExperienceList from '@components/ExperienceList'
+import EducationList from '@components/EducationList'
 import Header from '@components/Header'
 import Skills from '@components/Skills'
 import ContactSection from '@components/ContactSection'
+import ContributionsGrid from '@components/ContributionsGrid'
+import { profile, projects, contributions, experience, education } from '@data/index'
 
-const items: PortfolioItem[] = [
-  {
-    title: 'Client Dashboard (Private)',
-    description: 'Embedded preview. Full app is private; thumbnail is a live iframe.',
-    href: 'https://example.com',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop',
-    private: true,
-  },
-  {
-    title: 'Internal Admin (Private)',
-    description: 'Role-based admin with audits. Previewed via sandboxed iframe.',
-    href: 'https://developer.mozilla.org',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop',
-    private: true,
-  },
-  {
-    title: 'Design System (React + Tailwind)',
-    description: 'Composable UI kit with tokens, theming, and accessibility baked-in.',
-    href: 'https://example.com/design-system',
-    imageUrl: 'https://images.unsplash.com/photo-1551516594-56cb78394645?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: 'SaaS Analytics Dashboard',
-    description: 'Real-time metrics, role-based access, and CSV export.',
-    href: 'https://example.com/saas-dashboard',
-    imageUrl: 'https://images.unsplash.com/photo-1551281044-8b63b4219bc5?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: 'Type-Safe API Layer',
-    description: 'End-to-end typed contracts with input/output validation.',
-    href: 'https://example.com/type-safe-api',
-    imageUrl: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: 'Open Source CLI',
-    description: 'Scaffolds apps with best practices and sensible defaults.',
-    href: 'https://example.com/oss-cli',
-    imageUrl: 'https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: 'Personal Portfolio',
-    description: 'Fast, accessible, and content-driven site built with Vite.',
-    href: 'https://example.com/portfolio',
-    imageUrl: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: 'Blog Platform (MDX)',
-    description: 'MDX-based authoring with syntax highlighting and search.',
-    href: 'https://example.com/blog-platform',
-    imageUrl: 'https://images.unsplash.com/photo-1484417894907-623942c8ee29?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: 'PWA: Offline Notes',
-    description: 'Installable, offline-first notes app with sync and conflict handling.',
-    href: 'https://example.com/pwa-notes',
-    imageUrl: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: 'Testing Toolkit',
-    description: 'Test utilities for component and API integration testing.',
-    href: 'https://example.com/testing-toolkit',
-    imageUrl: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop',
-  },
-]
-
-const experience: ExperienceItem[] = [
-  {
-    company: 'Acme Corp',
-    role: 'Senior Frontend Engineer',
-    period: '2023 — Present',
-    location: 'Remote',
-    details: [
-      'Led migration to a type-safe React stack with SWC and Vite.',
-      'Built design system components and documentation.',
-      'Improved performance and accessibility scores across key surfaces.'
-    ]
-  },
-  {
-    company: 'Globex',
-    role: 'Full-Stack Engineer',
-    period: '2021 — 2023',
-    location: 'Hybrid',
-    details: [
-      'Delivered features across Node, Postgres, and React.',
-      'Introduced end-to-end validation for API contracts.'
-    ]
-  }
-]
-
-const education: EducationItem[] = [
-  {
-    school: 'State University',
-    degree: 'B.S. Computer Science',
-    period: '2017 — 2021',
-    location: 'City, Country',
-    details: ['Focused on distributed systems and HCI.']
-  }
-]
 
 function App() {
   useReveal()
@@ -116,24 +20,20 @@ function App() {
         <div className="pointer-events-none absolute inset-0 bg-radial-fade" aria-hidden="true"></div>
         <div className="pointer-events-none absolute inset-0 bg-noise opacity-40 mix-blend-soft-light" aria-hidden="true"></div>
         <Header 
-          name="Your Name" 
-          role="Full-Stack Developer" 
-          bio="Building fast, accessible web apps with React, TypeScript, and modern tooling."
+          name={profile.name}
+          role={profile.role}
+          bio={profile.bio}
         />
 
         <main className="max-w-6xl mx-auto px-4 pb-16">
           <div id="about" className="mb-8">
             <h2 className="sr-only">Developer Profile</h2>
             <DeveloperProfile
-              name="Your Name"
-              role="Full-Stack Developer"
-              location="Remote / City, Country"
+              name={profile.name}
+              role={profile.role}
+              location={profile.location}
               summary="I design and build thoughtful, performant web applications. My background spans frontend architecture, type-safe APIs, and developer experience. I care deeply about clarity, accessibility, and maintainable systems."
-              links={[
-                { label: 'GitHub', href: 'https://github.com/' },
-                { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
-                { label: 'Email', href: 'mailto:you@example.com' },
-              ]}
+              links={profile.links}
             />
           </div>
 
@@ -170,18 +70,24 @@ function App() {
             {/* Personal (non-private) projects */}
             <div className="mb-6">
               <h3 className="text-lg font-semibold text-surface-secondary mb-3">Personal</h3>
-              <CardGrid items={items.filter((i) => !i.private)} />
+              <CardGrid items={projects.filter((i) => !i.private)} />
             </div>
             {/* Private projects */}
             <div>
               <h3 className="text-lg font-semibold text-surface-secondary mb-3">Private</h3>
-              <CardGrid items={items.filter((i) => i.private)} />
+              <CardGrid items={projects.filter((i) => i.private)} />
             </div>
+          </section>
+
+          {/* Contributions */}
+          <section id="contributions" className="mt-12">
+            <h2 className="text-2xl font-semibold text-foreground mb-4">Contributions</h2>
+            <ContributionsGrid items={contributions} />
           </section>
 
           {/* Contact */}
           <section id="contact" className="mt-12">
-            <ContactSection email="you@example.com" />
+            <ContactSection email={profile.links.find(link => link.label === 'Email')?.href.replace('mailto:', '') || 'you@example.com'} />
           </section>
         </main>
       </div>
