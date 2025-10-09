@@ -8,7 +8,7 @@ import Skills from '@components/Skills'
 import ContactSection from '@components/ContactSection'
 import ContributionsGrid from '@components/ContributionsGrid'
 import { profile, projects, contributions, experience, education } from '@data/index'
-
+import skills from '@data/skills' // <-- import skills.ts
 
 function App() {
   useReveal()
@@ -19,11 +19,13 @@ function App() {
         <div className="pointer-events-none absolute inset-0 bg-grid-pattern opacity-30" aria-hidden="true"></div>
         <div className="pointer-events-none absolute inset-0 bg-radial-fade" aria-hidden="true"></div>
         <div className="pointer-events-none absolute inset-0 bg-noise opacity-40 mix-blend-soft-light" aria-hidden="true"></div>
-        <Header 
-          name={profile.name}
-          role={profile.role}
-          bio={profile.bio}
-        />
+        <div className="sticky top-0 z-50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <Header 
+            name={profile.name}
+            role={profile.role}
+            bio={profile.bio}
+          />
+        </div>
 
         <main className="max-w-6xl mx-auto px-4 pb-16">
           <div id="about" className="mb-8">
@@ -44,9 +46,7 @@ function App() {
               <ExperienceList items={experience} />
               <EducationList items={education} />
               <div id="skills">
-                <Skills skills={[
-                  'TypeScript','React','Node.js','PostgreSQL','Tailwind CSS','Vite','Testing','CI/CD','Accessibility'
-                ]} />
+                <Skills skills={skills} /> {/* <-- use imported skills */}
               </div>
             </div>
           </section>
